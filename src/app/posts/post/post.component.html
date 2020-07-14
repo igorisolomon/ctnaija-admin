@@ -1,0 +1,42 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <form [formGroup]="editorForm" (ngSubmit)='onSubmit()'>
+						<div>
+							<mat-form-field appearance="outline">
+								<mat-label>Title</mat-label>
+								<input matInput required>
+							</mat-form-field>
+							<div class="post-file">
+								<input 
+									formControlName="file"
+									id="file" 
+									type="file" 
+									class="form-control"
+									(change)="onFileChange($event)"
+									required>
+							</div>
+						</div>
+						<br>
+
+						<quill-editor formControlName='editor' [styles]='editorStyle' [modules]='config' required></quill-editor>
+						<br>
+
+						<mat-checkbox>Publish Post</mat-checkbox>
+						<br>
+
+						<mat-form-field appearance="outline" class="mt-4">
+							<mat-label>Category</mat-label>
+							<mat-select placeholder="Select Category" multiple required>
+								<mat-option value="1">Politics</mat-option>
+								<mat-option value="2">Business</mat-option>
+								<mat-option value="3">Technology</mat-option>
+								<mat-option value="4">Entertainment</mat-option>
+								<mat-option value="5">Sports</mat-option>
+								<mat-option value="6">Life Style</mat-option>
+							</mat-select>
+						</mat-form-field>
+
+            <button class="btn btn-danger mt-4" type='submit'>Submit</button>
+        </form>
+    </div>
+</div>

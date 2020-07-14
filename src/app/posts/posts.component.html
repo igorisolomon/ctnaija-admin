@@ -1,0 +1,51 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Simple Table</h4>
+                        <p class="card-category"> Here is a subtitle for this table</p>
+                    </div>
+
+                    <div class="col-md-4 col-sm-2">
+                        <a class="btn btn-danger" [routerLink]="['/post']">
+                            <i class="material-icons">note_add</i>
+                            New Post
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        S/N
+                                    </th>
+                                    <th>
+                                        Title
+                                    </th>
+                                </thead>
+                                <tbody *ngFor="let post of posts; let i = index" >
+                                    <tr>
+                                        <td>
+                                            {{i+1}}
+                                        </td>
+                                        <td>
+                                            {{post?.title}}
+                                        </td>
+                                        <td class="td-actions text-right">
+                                            <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

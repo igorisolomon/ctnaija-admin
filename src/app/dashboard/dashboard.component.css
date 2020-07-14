@@ -1,0 +1,12 @@
+.img-card{
+    margin-top: -50px;
+}
+
+img.img{
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+    margin: auto;
+}

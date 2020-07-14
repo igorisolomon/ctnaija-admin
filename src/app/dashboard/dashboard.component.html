@@ -1,0 +1,105 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+					<div class="col-md-5">
+							<div class="card card-profile">
+									<div class="img-card"><img class="card img" src={{company?.logo}} /></div>
+									<div class="card-body">
+											<h4 class="card-title">{{company?.name}}</h4>
+											<p class="card-description">{{company?.email}} <br>{{company?.phone}}</p>
+											<p class="card-description">{{company?.about}}</p>
+											<a class="btn btn-danger btn-round" [routerLink]="['/company']">Edit</a>
+									</div>
+							</div>
+					</div>
+          <div class="col-md-7">
+            <div class="row">
+                <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-warning card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">content_copy</i>
+                            </div>
+                            <p class="card-category">Views</p>
+                            <h3 class="card-title">{{views?.toLocaleString()}}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">Total Number of Views</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-success card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">store</i>
+                            </div>
+                            <p class="card-category">Post</p>
+                            <h3 class="card-title">245</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">Total Number of Posts</div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-blue card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-facebook"></i>
+                            </div>
+                            <p class="card-category">Facebook</p>
+                            <h3 class="card-title">{{(+company?.facebook_fans)?.toLocaleString()}}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">Facebook Fans</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-twitter"></i>
+                            </div>
+                            <p class="card-category">Twitter</p>
+                            <h3 class="card-title">{{(+company?.twitter_fans)?.toLocaleString()}}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">Twitter Followers</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-red card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-youtube"></i>
+                            </div>
+                            <p class="card-category">Youtube</p>
+                            <h3 class="card-title">{{(+company?.youtube_fans)?.toLocaleString()}}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">Youtube Subscriptions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-instagram"></i>
+                            </div>
+                            <p class="card-category">Instagram</p>
+                            <h3 class="card-title">5,326</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">Instagram Followers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
