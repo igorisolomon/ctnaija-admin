@@ -1,7 +1,16 @@
 <div class="new-post">
 	<div class="main-content cont">
 		<div class="container-fluid">
-			<form [formGroup]="editorForm" (ngSubmit)='onSubmit(editorForm)'>
+			<div class="post-nav">
+				<a [routerLink]="['/posts']" class="btn mt-4">
+					<i class="material-icons">
+						arrow_back
+					</i>
+					Back
+				</a>
+				<button (click)="onDelete(editorForm.get('id').value)" class="btn mt-4">Delete</button>
+			</div>
+			<form [formGroup]="editorForm" (ngSubmit)="editorForm.get('id').value?onEdit(editorForm):onSubmit(editorForm)">
 							<div>
 								<mat-form-field appearance="outline">
 									<mat-label>Title</mat-label>
@@ -44,7 +53,7 @@
 									<mat-option [value]="6">Life Style</mat-option>
 								</mat-select>
 							</mat-form-field>
-							
+
 				<button class="btn btn-danger mt-4" type='submit'>Submit</button>
 			</form>
 		</div>

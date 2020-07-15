@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder, NgForm } from '@angular/forms';
 import { PostInteface } from 'app/shared/interfaces/post-inteface';
 import { BlogService } from 'app/shared/services/blog.service';
 import { DataService } from 'app/shared/services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -32,6 +33,7 @@ export class PostComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private blogService: BlogService,
     private dataService: DataService) {  }
 
@@ -41,6 +43,7 @@ export class PostComponent implements OnInit {
 
     if(updatePost){
       this.editorForm = this.fb.group({
+        id: new FormControl(updatePost.id),
         title: new FormControl(updatePost.title),
         media: new FormControl(null),
         body: new FormControl(updatePost.body),
@@ -73,38 +76,67 @@ export class PostComponent implements OnInit {
 
   onCategoryChange(event){
     this.editorForm.value.categorys = event.value.map(x=>+x)
-    // this.editorForm.value.categorys = `"${JSON.stringify(event.value.map(x=>+x))}"`
-    // console.log(`"${JSON.stringify(event.value.map(x=>+x))}"`);
-    // console.log(`'hey'`);
-    
-    
   }
 
   onSubmit(editorForm: NgForm){
+    const formData = new FormData();
+    // append file if not updated
+    if(this.editorForm.value.media){
+      formData.append('media', editorForm.value.media);
+    }
+    else{
+      return
+    }
 
-    console.log(editorForm.value);
+    const payload = editorForm.value
+    delete payload.media
+
+    this.blogService.createPost(payload).subscribe(
+      response=>{
+        this.blogService.editPost(response.id,formData).subscribe(
+          response=>{
+            console.log(response);
+            this.router.navigateByUrl('/posts')
+          }
+        )
+      }
+    )
+  }
+
+  onEdit(editorForm: NgForm){
+    const payload = editorForm.value
+    const id = payload.id
+
+    const formData = new FormData();
+    formData.append('media', editorForm.value.media);
+
+    // Update image if image is changed
+    if(this.editorForm.value.media){
+      this.blogService.editPost(id,formData).subscribe(
+        response=>{
+          console.log(response);
+        }
+      )
+    }
+
+    // Remove id from payload
+    delete payload.id
+    delete payload.media
+
+    // Update the form without image
+    this.blogService.editPost(id,payload).subscribe(
+      response=>{
+        this.router.navigateByUrl('/posts')
+      }
+    )
     
+  }
 
-    // const formData = new FormData();
-    // // append file if not updated
-    // if(this.editorForm.value.media){
-    //   formData.append('media', editorForm.value.media);
-    // }
-    // else{
-    //   return
-    // }
-
-    // const payload = editorForm.value
-    // delete payload.media
-
-    // this.blogService.createPost(payload).subscribe(
-    //   response=>{
-    //     this.blogService.editPost(response.id,formData).subscribe(
-    //       response=>{
-    //         console.log(response);
-    //       }
-    //     )
-    //   }
-    // )
+  onDelete(id: number){
+    this.blogService.deletePost(id).subscribe(
+      response=>{
+        this.router.navigateByUrl('/posts')
+      }
+    )
   }
 }

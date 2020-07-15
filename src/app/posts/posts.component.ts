@@ -31,7 +31,6 @@ export class PostsComponent implements OnInit {
   }
   
   edit(post){
-    console.log(post);
     // send data to data service
     this.dataService.update(post)
 

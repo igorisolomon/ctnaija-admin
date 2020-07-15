@@ -55,4 +55,11 @@ export class BlogService {
       payload
     )
   }
+
+  // Delete Post
+  deletePost(id){
+    return this.http.delete<PostInteface>(
+      `${environment.restApiUrl}api/post-edit/${id}`
+    )
+  }
 }
