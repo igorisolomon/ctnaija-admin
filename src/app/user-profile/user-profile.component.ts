@@ -15,9 +15,8 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private blogService: BlogService,
-    private fb: FormBuilder,
-    private cd: ChangeDetectorRef) {
-      this.companyForm = fb.group({
+    private fb: FormBuilder) {
+      this.companyForm = this.fb.group({
         name: new FormControl(this.company?.name),
         phone: new FormControl(this.company?.phone),
         email: new FormControl(this.company?.email),
@@ -37,25 +36,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   onFileChange(event) {
-    // const reader = new FileReader();
-    // if(event.target.files && event.target.files.length) {
-    //   const [file] = event.target.files;
-    //   reader.readAsDataURL(file);
-  
-    //   reader.onload = () => {
-    //     this.companyForm.patchValue({
-    //       logo: reader.result
-    //    });
-    //   // need to run CD since file load runs outside of zone
-    //   this.cd.markForCheck();
-    //   };
-    // }
-
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-
-      console.log(file);
-      
       this.companyForm.get('logo').setValue(file);
     }
   }
@@ -98,6 +80,7 @@ export class UserProfileComponent implements OnInit {
       // remove file
       formData.append('logo', companyForm.value.logo);
     }
+    
     this.blogService.editCompany(formData).subscribe(
       response=>{
         console.log(response);

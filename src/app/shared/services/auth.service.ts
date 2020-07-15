@@ -28,6 +28,8 @@ export class AuthService {
     if (parsedToken) {
       this.isLoggedIn.next(true);
       this.accessToken.next(parsedToken.access_token);
+
+      this.router.navigateByUrl('/')
     }
     else{
       this.router.navigateByUrl('/signin');

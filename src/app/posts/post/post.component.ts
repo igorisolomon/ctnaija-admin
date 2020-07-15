@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, NgForm } from '@angular/forms';
+import { PostInteface } from 'app/shared/interfaces/post-inteface';
+import { BlogService } from 'app/shared/services/blog.service';
 
 @Component({
   selector: 'app-post',
@@ -8,9 +10,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class PostComponent implements OnInit {
 
+  post: PostInteface
   editorForm: FormGroup
-
-  fileToUpload: File = null;
 
   editorStyle = {
     height: '300px'
@@ -28,33 +29,63 @@ export class PostComponent implements OnInit {
     ]
   }
 
-  constructor() { }
+  constructor(
+    private blogService: BlogService,
+    private fb: FormBuilder) {  }
 
   ngOnInit(): void {
-    this.editorForm = new FormGroup({
-      'editor': new FormControl(null)
+    this.editorForm = this.fb.group({
+      title: "",
+      media: null,
+      body: "",
+      body_html: "",
+      categorys: []
     })
   }
 
-  toText(html: string){
-    html = html.replace(/<\/h[1-6]>/ig, '\n');
-    html = html.replace(/<\/div>/ig, '\n');
-    html = html.replace(/<\/li>/ig, '\n');
-    html = html.replace(/<li>/ig, '  *  ');
-    html = html.replace(/<\/ul>/ig, '\n');
-    html = html.replace(/<\/p>/ig, '\n');
-    html = html.replace(/<\/blockquote>/ig, '\n');
-    html = html.replace(/<br\s*[\/]?>/gi, "\n");
-    html = html.replace(/<[^>]+>/ig, '');
-    return html
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.editorForm.get('media').setValue(file);
+    }
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+  onBodyChange(event){
+    this.editorForm.value.body = event.text
+    this.editorForm.value.body_html = event.html
   }
 
-  onSubmit(){
-    console.log(this.editorForm.value.editor);
-    console.log(this.toText(this.editorForm.value.editor));
+  onCategoryChange(event){
+    this.editorForm.value.categorys = event.value.map(x=>+x)
+    // this.editorForm.value.categorys = `"${JSON.stringify(event.value.map(x=>+x))}"`
+    // console.log(`"${JSON.stringify(event.value.map(x=>+x))}"`);
+    // console.log(`'hey'`);
+    
+    
+  }
+
+  onSubmit(editorForm: NgForm){
+
+    const formData = new FormData();
+    // append file if not updated
+    if(this.editorForm.value.media){
+      formData.append('media', editorForm.value.media);
+    }
+    else{
+      return
+    }
+
+    const payload = editorForm.value
+    delete payload.media
+
+    this.blogService.createPost(payload).subscribe(
+      response=>{
+        this.blogService.editPost(response.id,formData).subscribe(
+          response=>{
+            console.log(response);
+          }
+        )
+      }
+    )
   }
 }

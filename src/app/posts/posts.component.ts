@@ -20,10 +20,14 @@ export class PostsComponent implements OnInit {
   getPostList(){
     this.blogService.fetchPost().subscribe(
       response=>{
-        // console.log(response);
         this.posts = response
       }
     )
   }
-
+  
+  edit(post){
+    console.log(post);
+    // send data to data service
+    // navigate to edit post
+  }
 }

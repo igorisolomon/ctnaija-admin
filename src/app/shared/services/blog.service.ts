@@ -41,5 +41,18 @@ export class BlogService {
   }
 
   // Create post
+  createPost(payload){
+    return this.http.post<PostInteface>(
+      `${environment.restApiUrl}api/post-create`,
+      payload
+    )
+  }
+
   // Edit post
+  editPost(id, payload){
+    return this.http.patch<PostInteface>(
+      `${environment.restApiUrl}api/post-edit/${id}`,
+      payload
+    )
+  }
 }
