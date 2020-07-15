@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, NgForm } from '@angular/forms';
 import { PostInteface } from 'app/shared/interfaces/post-inteface';
 import { BlogService } from 'app/shared/services/blog.service';
+import { DataService } from 'app/shared/services/data.service';
 
 @Component({
   selector: 'app-post',
@@ -30,17 +31,32 @@ export class PostComponent implements OnInit {
   }
 
   constructor(
+    private fb: FormBuilder,
     private blogService: BlogService,
-    private fb: FormBuilder) {  }
+    private dataService: DataService) {  }
 
   ngOnInit(): void {
-    this.editorForm = this.fb.group({
-      title: "",
-      media: null,
-      body: "",
-      body_html: "",
-      categorys: []
-    })
+
+    const updatePost = this.dataService.post.value
+
+    if(updatePost){
+      this.editorForm = this.fb.group({
+        title: new FormControl(updatePost.title),
+        media: new FormControl(null),
+        body: new FormControl(updatePost.body),
+        body_html: new FormControl(updatePost.body_html?updatePost.body_html:updatePost.body),
+        categorys: new FormControl(updatePost.categorys)
+      })
+    }
+    else{
+      this.editorForm = this.fb.group({
+        title: new FormControl(""),
+        media: new FormControl(null),
+        body: new FormControl(""),
+        body_html: new FormControl(""),
+        categorys: new FormControl()
+      })
+    }
   }
 
   onFileChange(event) {
@@ -66,26 +82,29 @@ export class PostComponent implements OnInit {
 
   onSubmit(editorForm: NgForm){
 
-    const formData = new FormData();
-    // append file if not updated
-    if(this.editorForm.value.media){
-      formData.append('media', editorForm.value.media);
-    }
-    else{
-      return
-    }
+    console.log(editorForm.value);
+    
 
-    const payload = editorForm.value
-    delete payload.media
+    // const formData = new FormData();
+    // // append file if not updated
+    // if(this.editorForm.value.media){
+    //   formData.append('media', editorForm.value.media);
+    // }
+    // else{
+    //   return
+    // }
 
-    this.blogService.createPost(payload).subscribe(
-      response=>{
-        this.blogService.editPost(response.id,formData).subscribe(
-          response=>{
-            console.log(response);
-          }
-        )
-      }
-    )
+    // const payload = editorForm.value
+    // delete payload.media
+
+    // this.blogService.createPost(payload).subscribe(
+    //   response=>{
+    //     this.blogService.editPost(response.id,formData).subscribe(
+    //       response=>{
+    //         console.log(response);
+    //       }
+    //     )
+    //   }
+    // )
   }
 }

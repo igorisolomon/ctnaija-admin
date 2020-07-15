@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from 'app/shared/services/blog.service';
 import { PostInteface } from 'app/shared/interfaces/post-inteface';
+import { DataService } from 'app/shared/services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -11,7 +13,10 @@ export class PostsComponent implements OnInit {
 
   posts: PostInteface;
 
-  constructor(private blogService: BlogService) { }
+  constructor(
+    private router: Router,
+    private blogService: BlogService,
+    private dataService: DataService) { }
 
   ngOnInit(): void {
     this.getPostList()
@@ -28,6 +33,9 @@ export class PostsComponent implements OnInit {
   edit(post){
     console.log(post);
     // send data to data service
+    this.dataService.update(post)
+
     // navigate to edit post
+    this.router.navigateByUrl('/post')
   }
 }

@@ -27,27 +27,24 @@
 								(onContentChanged)="onBodyChange($event)"
 								required></quill-editor>
 							<br>
-	
-							<!-- <mat-checkbox>Publish Post</mat-checkbox> -->
-							<br>
+							
 	
 							<mat-form-field appearance="outline" class="mt-4">
 								<mat-label>Category</mat-label>
 								<mat-select 
 									placeholder="Select Category" 
 									formControlName="categorys"
-									(selectionChange)="onCategoryChange($event)"
 									multiple 
 									required>
-									<mat-option value="1">Politics</mat-option>
-									<mat-option value="2">Business</mat-option>
-									<mat-option value="3">Technology</mat-option>
-									<mat-option value="4">Entertainment</mat-option>
-									<mat-option value="5">Sports</mat-option>
-									<mat-option value="6">Life Style</mat-option>
+									<mat-option [value]="1">Politics</mat-option>
+									<mat-option [value]="2">Business</mat-option>
+									<mat-option [value]="3">Technology</mat-option>
+									<mat-option [value]="4">Entertainment</mat-option>
+									<mat-option [value]="5">Sports</mat-option>
+									<mat-option [value]="6">Life Style</mat-option>
 								</mat-select>
 							</mat-form-field>
-	
+							
 				<button class="btn btn-danger mt-4" type='submit'>Submit</button>
 			</form>
 		</div>
