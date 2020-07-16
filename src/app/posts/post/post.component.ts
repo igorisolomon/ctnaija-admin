@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { PostInteface } from 'app/shared/interfaces/post-inteface';
 import { BlogService } from 'app/shared/services/blog.service';
 import { DataService } from 'app/shared/services/data.service';
@@ -78,7 +78,7 @@ export class PostComponent implements OnInit {
     this.editorForm.value.categorys = event.value.map(x=>+x)
   }
 
-  onSubmit(editorForm: NgForm){
+  onSubmit(editorForm){
     const formData = new FormData();
     // append file if not updated
     if(this.editorForm.value.media){
@@ -103,7 +103,7 @@ export class PostComponent implements OnInit {
     )
   }
 
-  onEdit(editorForm: NgForm){
+  onEdit(editorForm){
     const payload = editorForm.value
     const id = payload.id
 

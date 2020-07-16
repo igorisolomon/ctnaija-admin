@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BlogService } from 'app/shared/services/blog.service';
 import { CompanyInterface } from 'app/shared/interfaces/company';
-import { FormGroup, FormBuilder, FormControl, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,7 +16,8 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private blogService: BlogService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private router: Router) {
       this.companyForm = this.fb.group({
         name: new FormControl(this.company?.name),
         phone: new FormControl(this.company?.phone),
@@ -61,7 +63,7 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  updateCompanyDetais(companyForm: NgForm){
+  updateCompanyDetais(companyForm){
     const formData = new FormData();
     formData.append('name', companyForm.value.name);
     formData.append('phone', companyForm.value.phone);
@@ -83,7 +85,7 @@ export class UserProfileComponent implements OnInit {
     
     this.blogService.editCompany(formData).subscribe(
       response=>{
-        console.log(response);
+        this.router.navigateByUrl("/")
       }
     )
     console.log(this.companyForm.value);

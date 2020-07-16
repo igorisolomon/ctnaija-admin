@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AuthService } from 'app/shared/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -26,7 +26,7 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSignin(signinForm: NgForm){
+  onSignin(signinForm){
     this.authService.signIn(signinForm.value).subscribe(
       response=>{
         if(response.status){
