@@ -10,7 +10,7 @@
 				</a>
 				<button (click)="onDelete(editorForm.get('id').value)" class="btn mt-4">Delete</button>
 			</div>
-			<form [formGroup]="editorForm" (ngSubmit)="editorForm.get('id').value?onEdit(editorForm):onSubmit(editorForm)">
+			<form [formGroup]="editorForm" (ngSubmit)="editorForm.get('id')?.value?onEdit(editorForm):onSubmit(editorForm)">
 							<div>
 								<mat-form-field appearance="outline">
 									<mat-label>Title</mat-label>

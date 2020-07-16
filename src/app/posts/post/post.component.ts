@@ -12,8 +12,9 @@ import { Router } from '@angular/router';
 })
 export class PostComponent implements OnInit {
 
-  post: PostInteface
-  editorForm: FormGroup
+  post: PostInteface;
+  editorForm: FormGroup;
+  body: string;
 
   editorStyle = {
     height: '300px'
@@ -70,8 +71,8 @@ export class PostComponent implements OnInit {
   }
 
   onBodyChange(event){
-    this.editorForm.value.body = event.text
-    this.editorForm.value.body_html = event.html
+    this.body = event.text;
+    this.editorForm.value.body_html = event.html;
   }
 
   onCategoryChange(event){
@@ -79,6 +80,7 @@ export class PostComponent implements OnInit {
   }
 
   onSubmit(editorForm){
+    
     const formData = new FormData();
     // append file if not updated
     if(this.editorForm.value.media){
@@ -89,7 +91,11 @@ export class PostComponent implements OnInit {
     }
 
     const payload = editorForm.value
+    payload.body = this.body
     delete payload.media
+
+
+    console.log(payload);
 
     this.blogService.createPost(payload).subscribe(
       response=>{
