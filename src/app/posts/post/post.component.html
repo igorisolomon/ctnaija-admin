@@ -1,61 +1,69 @@
 <div class="new-post">
 	<div class="main-content cont">
-		<div class="container-fluid">
-			<div class="post-nav">
-				<a [routerLink]="['/posts']" class="btn mt-4">
-					<i class="material-icons">
-						arrow_back
-					</i>
-					Back
-				</a>
-				<button (click)="onDelete(editorForm.get('id').value)" class="btn mt-4">Delete</button>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="container-fluid">
+					<div class="post-nav">
+						<a [routerLink]="['/posts']" class="btn mt-4">
+							<i class="material-icons">
+								arrow_back
+							</i>
+							Back
+						</a>
+						<button (click)="onDelete(editorForm.get('id').value)" class="btn mt-4">Delete</button>
+					</div>
+					<form [formGroup]="editorForm" (ngSubmit)="editorForm.get('id')?.value?onEdit(editorForm):onSubmit(editorForm)">
+									<div>
+										<mat-form-field appearance="outline">
+											<mat-label>Title</mat-label>
+											<input 
+												matInput
+												formControlName="title"
+												required>
+										</mat-form-field>
+										<div class="post-file">
+											<input 
+												id="file" 
+												type="file" 
+												class="form-control"
+												(change)="onFileChange($event)">
+										</div>
+									</div>
+									<br>
+			
+									<quill-editor 
+										formControlName='body_html' 
+										[styles]='editorStyle' 
+										[modules]='config' 
+										(onContentChanged)="onBodyChange($event)"
+										required></quill-editor>
+									<br>
+									
+			
+									<mat-form-field appearance="outline" class="mt-4">
+										<mat-label>Category</mat-label>
+										<mat-select 
+											placeholder="Select Category" 
+											formControlName="categorys"
+											multiple 
+											required>
+											<mat-option [value]="1">Politics</mat-option>
+											<mat-option [value]="2">Business</mat-option>
+											<mat-option [value]="3">Technology</mat-option>
+											<mat-option [value]="4">Entertainment</mat-option>
+											<mat-option [value]="5">Sports</mat-option>
+											<mat-option [value]="6">Life Style</mat-option>
+										</mat-select>
+									</mat-form-field>
+		
+						<button class="btn btn-danger mt-4" type='submit'>Submit</button>
+					</form>
+				</div>
 			</div>
-			<form [formGroup]="editorForm" (ngSubmit)="editorForm.get('id')?.value?onEdit(editorForm):onSubmit(editorForm)">
-							<div>
-								<mat-form-field appearance="outline">
-									<mat-label>Title</mat-label>
-									<input 
-										matInput
-										formControlName="title"
-										required>
-								</mat-form-field>
-								<div class="post-file">
-									<input 
-										id="file" 
-										type="file" 
-										class="form-control"
-										(change)="onFileChange($event)">
-								</div>
-							</div>
-							<br>
-	
-							<quill-editor 
-								formControlName='body_html' 
-								[styles]='editorStyle' 
-								[modules]='config' 
-								(onContentChanged)="onBodyChange($event)"
-								required></quill-editor>
-							<br>
-							
-	
-							<mat-form-field appearance="outline" class="mt-4">
-								<mat-label>Category</mat-label>
-								<mat-select 
-									placeholder="Select Category" 
-									formControlName="categorys"
-									multiple 
-									required>
-									<mat-option [value]="1">Politics</mat-option>
-									<mat-option [value]="2">Business</mat-option>
-									<mat-option [value]="3">Technology</mat-option>
-									<mat-option [value]="4">Entertainment</mat-option>
-									<mat-option [value]="5">Sports</mat-option>
-									<mat-option [value]="6">Life Style</mat-option>
-								</mat-select>
-							</mat-form-field>
 
-				<button class="btn btn-danger mt-4" type='submit'>Submit</button>
-			</form>
+			<div class="col-md-6" *ngIf="postId">
+				<app-comments [postId]="postId"></app-comments>
+			</div>
 		</div>
 	</div>	
 </div>

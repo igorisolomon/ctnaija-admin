@@ -87,9 +87,7 @@ export class UserProfileComponent implements OnInit {
       response=>{
         this.router.navigateByUrl("/")
       }
-    )
-    console.log(this.companyForm.value);
-    
+    )    
   }
 
 }

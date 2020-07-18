@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
+import { DataService } from './shared/services/data.service';
 
 
 @Component({
@@ -10,11 +11,13 @@ import { AuthService } from './shared/services/auth.service';
 export class AppComponent implements OnInit {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private dataService: DataService
   ){}
 
   ngOnInit(){
     this.authService.checkAuthenticationState();
+    this.dataService.updatePostList();
   }
 
 }

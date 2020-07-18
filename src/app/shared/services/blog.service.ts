@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CompanyInterface } from '../interfaces/company';
 import { environment } from 'environments/environment';
 import { PostInteface } from '../interfaces/post-inteface';
+import { CommentInterface } from '../interfaces/comment-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,35 @@ export class BlogService {
   deletePost(id){
     return this.http.delete<PostInteface>(
       `${environment.restApiUrl}api/post-edit/${id}`
+    )
+  }
+
+  /**
+   * Comment session
+   */
+  // list comments
+  // fetchComments
+
+  // Comment starts here
+  // get comments
+  fetchComments(postId:number){
+    return this.http.get<CommentInterface[]>(
+      `${environment.restApiUrl}api/comments/?post=${postId}`
+    )
+  }
+
+  // create comment
+  createComment(payload){
+    return this.http.post<CommentInterface>(
+      `${environment.restApiUrl}api/comments/`,
+      payload
+    )
+  }
+
+  // Delete comments
+  deleteComment(id:number){
+    return this.http.delete<CommentInterface>(
+      `${environment.restApiUrl}api/comment-delete/${id}`
     )
   }
 }

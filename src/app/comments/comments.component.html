@@ -1,4 +1,4 @@
-<div class="main-content">
+
     <div class="container-fluid">
 
         <div class="row">
@@ -13,47 +13,14 @@
                             <div class="tab-pane active" id="profile">
                                 <table class="table">
                                     <tbody>
-                                        <tr>
-                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
+                                        <tr *ngFor="let comment of comments">
+                                            <td>{{comment.name}}</td>
+                                            <td>{{comment.comment}}</td>
                                             <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                <!-- <button mat-raised-button type="button" matTooltip="Reply Comment" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">question_answer</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="question_answer Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">question_answer</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                            </td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="question_answer Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">question_answer</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">question_answer</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                </button> -->
+                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="onDelete(comment.id)">
                                                     <i class="material-icons">close</i>
                                                 </button>
                                             </td>
@@ -62,9 +29,21 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="reply" *ngIf="postId">
+                            <h3>Reply</h3>
+                            <form [formGroup]="replyForm" (ngSubmit)="onReply(replyForm)">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Reply</mat-label>
+                                    <input 
+                                        matInput
+                                        formControlName="comment"
+                                        maxlength="256">
+                                </mat-form-field>
+						        <button class="btn btn-danger mt-4" type='submit' [disabled]="!replyForm.valid">Reply</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

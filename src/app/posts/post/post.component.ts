@@ -15,12 +15,11 @@ export class PostComponent implements OnInit {
   post: PostInteface;
   editorForm: FormGroup;
   body: string;
+  postId: number;
 
   editorStyle = {
     height: '300px'
   }
-
-  // text = quill.getText();
 
   config = {
     toolbar: [
@@ -41,6 +40,8 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
 
     const updatePost = this.dataService.post.value
+
+    this.postId = updatePost?.id;
 
     if(updatePost){
       this.editorForm = this.fb.group({
@@ -95,13 +96,10 @@ export class PostComponent implements OnInit {
     delete payload.media
 
 
-    console.log(payload);
-
     this.blogService.createPost(payload).subscribe(
       response=>{
         this.blogService.editPost(response.id,formData).subscribe(
           response=>{
-            console.log(response);
             this.router.navigateByUrl('/posts')
           }
         )
