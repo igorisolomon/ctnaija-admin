@@ -40,6 +40,8 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
 
     const updatePost = this.dataService.post.value
+    // clear post
+    this.dataService.update(null)
 
     this.postId = updatePost?.id;
 
