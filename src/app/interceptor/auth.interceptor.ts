@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { AuthService } from 'app/shared/services/auth.service';
 import { Router } from '@angular/router';
-import { environment } from 'environments/environment';
+import { environment } from 'environments/environment.prod';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

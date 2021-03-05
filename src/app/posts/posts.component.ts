@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class PostsComponent implements OnInit {
 
-  posts: PostInteface;
+  posts;
+  page = 1;
 
   constructor(
     private router: Router,
@@ -19,11 +20,22 @@ export class PostsComponent implements OnInit {
     private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.getPostList()
+    this.getPostList('')
   }
 
-  getPostList(){
-    this.blogService.fetchPost().subscribe(
+  getPostList(link:string){
+
+    let page = 1
+
+    if(link){
+      const pageArr = link.split('=');
+
+      page = pageArr.length>1 ? parseInt(pageArr[pageArr?.length-1]) : 1;
+
+      this.page = page
+    }
+    
+    this.blogService.fetchPost(page).subscribe(
       response=>{
         this.posts = response
       }

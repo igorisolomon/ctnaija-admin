@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CompanyInterface } from '../interfaces/company';
-import { environment } from 'environments/environment';
+import { environment } from 'environments/environment.prod';
 import { PostInteface } from '../interfaces/post-inteface';
 import { CommentInterface } from '../interfaces/comment-interface';
 
@@ -35,9 +35,9 @@ export class BlogService {
   /**
    * Gets post list from database
    */
-  fetchPost(){
+  fetchPost(page){
     return this.http.get<PostInteface>(
-      `${environment.restApiUrl}api/post/`
+      `${environment.restApiUrl}api/post-list/?page=${page}`
     )
   }
 

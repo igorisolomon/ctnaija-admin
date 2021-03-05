@@ -24,7 +24,7 @@ export class DataService {
   }
 
   updatePostList(){
-    this.blogService.fetchPost().subscribe(
+    this.blogService.fetchPost(1).subscribe(
       response=>{
         this.posts.next(response)
       }

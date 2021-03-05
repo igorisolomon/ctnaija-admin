@@ -4,8 +4,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Simple Table</h4>
-                        <p class="card-category"> Here is a subtitle for this table</p>
+                        <h4 class="card-title ">Posts</h4>
+                        <p class="card-category"> List of post</p>
                     </div>
 
                     <div class="col-md-4 col-sm-2">
@@ -25,10 +25,10 @@
                                         Title
                                     </th>
                                 </thead>
-                                <tbody *ngFor="let post of posts; let i = index" >
+                                <tbody *ngFor="let post of posts?.results; let i = index" >
                                     <tr>
                                         <td>
-                                            {{i+1}}
+                                            {{((page-1)*10)+i+1}}
                                         </td>
                                         <td>
                                             {{post?.title}}
@@ -47,6 +47,14 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class='row bottom-btn'>
+                            <div class="col-md-4 col-sm-2">
+                                <button class="btn btn-danger" [disabled]="!posts?.previous" (click)="getPostList(posts.previous)">Previous</button>
+                            </div>
+                            <div class="col-md-4 col-sm-2">
+                                <button class="btn btn-danger" [disabled]="!posts?.next" (click)="getPostList(posts.next)">Next</button>
+                            </div>
                         </div>
                     </div>
                 </div>

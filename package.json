@@ -9,6 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "pm2:start": "pm2 start dist/ctnaija/server/main.js",
+    "pm2:reload": "pm2 reload dist/ctnaija/server/main.js",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && ng serve -o"
   },
   "engines": {
