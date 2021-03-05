@@ -92,4 +92,11 @@ export class BlogService {
       `${environment.restApiUrl}api/comment-delete/${id}`
     )
   }
+
+  // fetch category
+  fetchCat(){
+    return this.http.get(
+      `${environment.restApiUrl}api/cat/`
+    )
+  }
 }

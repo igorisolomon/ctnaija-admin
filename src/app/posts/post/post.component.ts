@@ -16,6 +16,7 @@ export class PostComponent implements OnInit {
   editorForm: FormGroup;
   body: string;
   postId: number;
+  categories;
 
   editorStyle = {
     height: '300px'
@@ -39,6 +40,9 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.blogService.fetchCat().subscribe(
+      res=> this.categories=res
+    )
     const updatePost = this.dataService.post.value
     // clear post
     this.dataService.update(null)

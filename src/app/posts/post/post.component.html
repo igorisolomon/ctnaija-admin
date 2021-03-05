@@ -47,12 +47,7 @@
 											formControlName="categorys"
 											multiple 
 											required>
-											<mat-option [value]="1">Politics</mat-option>
-											<mat-option [value]="2">Business</mat-option>
-											<mat-option [value]="3">Technology</mat-option>
-											<mat-option [value]="4">Entertainment</mat-option>
-											<mat-option [value]="5">Sports</mat-option>
-											<mat-option [value]="6">Life Style</mat-option>
+											<mat-option *ngFor="let cat of categories" [value]="cat?.id">{{cat.name}}</mat-option>
 										</mat-select>
 									</mat-form-field>
 		
