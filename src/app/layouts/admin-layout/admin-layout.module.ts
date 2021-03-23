@@ -20,6 +20,7 @@ import { PostsComponent } from 'app/posts/posts.component';
 import { CommentsComponent } from 'app/comments/comments.component';
 import { PostComponent } from 'app/posts/post/post.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import ImageResize from 'quill-image-resize-module';
 
 @NgModule({
   imports: [

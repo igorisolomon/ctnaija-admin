@@ -4,6 +4,12 @@ import { PostInteface } from 'app/shared/interfaces/post-inteface';
 import { BlogService } from 'app/shared/services/blog.service';
 import { DataService } from 'app/shared/services/data.service';
 import { Router } from '@angular/router';
+import * as QuillNamespace from 'quill';
+import ImageResize from 'quill-image-resize-module';
+
+
+let Quill: any = QuillNamespace;
+Quill.register('modules/imageResize', ImageResize);
 
 @Component({
   selector: 'app-post',
@@ -29,7 +35,8 @@ export class PostComponent implements OnInit {
       [{ 'indent': '+1'}, { 'indent': '-1' }],          // outdent/indent
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
       [{ 'align': [] }]
-    ]
+    ],
+    imageResize: true
   }
 
   constructor(
